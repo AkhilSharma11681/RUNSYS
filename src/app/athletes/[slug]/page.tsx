@@ -168,7 +168,7 @@ export default async function AthletePage({
               </div>
 
               <EntityLink
-                href={`/opportunities/${firstOpportunity.slug}`}
+                href={`/opportunities/${firstOpportunity.slug}`} transitionName={`opportunity-${firstOpportunity.slug}`}
                 className="athlete-context-enter"
               >
                 Enter opportunity ↗
@@ -259,7 +259,7 @@ export default async function AthletePage({
               {events.slice(0, 4).map((event) => (
                 <EntityLink
                   key={event.slug}
-                  href={`/events/${event.slug}`}
+                  href={`/events/${event.slug}`} transitionName={`event-${event.slug}`}
                   className="athlete-relation-link"
                 >
                   <span>{event.name}</span>
@@ -282,7 +282,7 @@ export default async function AthletePage({
               {brands.slice(0, 4).map((brand) => (
                 <EntityLink
                   key={brand.slug}
-                  href={`/brands/${brand.slug}`}
+                  href={`/brands/${brand.slug}`} transitionName={`brand-${brand.slug}`}
                   className="athlete-relation-link"
                 >
                   <span>{brand.name}</span>
@@ -399,7 +399,7 @@ export default async function AthletePage({
                 <InterestButton opportunitySlug={firstOpportunity.slug} />
 
                 <EntityLink
-                  href={`/opportunities/${firstOpportunity.slug}`}
+                  href={`/opportunities/${firstOpportunity.slug}`} transitionName={`opportunity-${firstOpportunity.slug}`}
                   className="editorial-action editorial-action-secondary"
                 >
                   Explore

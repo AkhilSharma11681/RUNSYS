@@ -196,7 +196,7 @@ export default async function EventPage({ params }: PageProps) {
               {eventAthletes.slice(0, 5).map((athlete) => (
                 <EntityLink
                   key={athlete.slug}
-                  href={`/athletes/${athlete.slug}`}
+                  href={`/athletes/${athlete.slug}`} transitionName={`athlete-${athlete.slug}`}
                   className="event-entity-link"
                 >
                   <span>{athlete.name}</span>
@@ -219,7 +219,7 @@ export default async function EventPage({ params }: PageProps) {
               {eventBrands.slice(0, 5).map((brand) => (
                 <EntityLink
                   key={brand.slug}
-                  href={`/brands/${brand.slug}`}
+                  href={`/brands/${brand.slug}`} transitionName={`brand-${brand.slug}`}
                   className="event-entity-link"
                 >
                   <span>{brand.name}</span>
@@ -244,7 +244,7 @@ export default async function EventPage({ params }: PageProps) {
               {eventOpportunities.slice(0, 5).map((opportunity) => (
                 <EntityLink
                   key={opportunity.slug}
-                  href={`/opportunities/${opportunity.slug}`}
+                  href={`/opportunities/${opportunity.slug}`} transitionName={`opportunity-${opportunity.slug}`}
                   className="event-opportunity-link"
                 >
                   <div>

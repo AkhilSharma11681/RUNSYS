@@ -212,7 +212,7 @@ export default async function BrandPage({ params }: PageProps) {
                 brandAthletes.map((athlete) => (
                   <EntityLink
                     key={athlete.id}
-                    href={`/athletes/${athlete.slug}`}
+                    href={`/athletes/${athlete.slug}`} transitionName={`athlete-${athlete.slug}`}
                     className="brand-network-link"
                   >
                     <div>
@@ -241,7 +241,7 @@ export default async function BrandPage({ params }: PageProps) {
                 brandEvents.map((event) => (
                   <EntityLink
                     key={event.id}
-                    href={`/events/${event.slug}`}
+                    href={`/events/${event.slug}`} transitionName={`event-${event.slug}`}
                     className="brand-network-link"
                   >
                     <div>
@@ -286,7 +286,7 @@ export default async function BrandPage({ params }: PageProps) {
             brandOpportunities.map((opportunity) => (
               <EntityLink
                 key={opportunity.id}
-                href={`/opportunities/${opportunity.slug}`}
+                href={`/opportunities/${opportunity.slug}`} transitionName={`opportunity-${opportunity.slug}`}
                 className="brand-opportunity-row"
               >
                 <div className="brand-opportunity-main">

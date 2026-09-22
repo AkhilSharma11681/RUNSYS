@@ -219,6 +219,10 @@ export default async function BrandPage({ params }: PageProps) {
                       <strong>{athlete.name}</strong>
                       <span>{athlete.discipline}</span>
                     </div>
+                    <div className="brand-network-detail">
+                      <span>{athlete.events.length} EVENTS</span>
+                      <span>{athlete.brands.length} BRANDS</span>
+                    </div>
                     <span aria-hidden="true">↗</span>
                   </EntityLink>
                 ))
@@ -247,6 +251,10 @@ export default async function BrandPage({ params }: PageProps) {
                     <div>
                       <strong>{event.name}</strong>
                       <span>{event.location}</span>
+                    </div>
+                    <div className="brand-network-detail">
+                      <span>{event.athleteSlugs.length} ATHLETES</span>
+                      <span>{event.brandSlugs.length} BRANDS</span>
                     </div>
                     <span aria-hidden="true">↗</span>
                   </EntityLink>
@@ -313,6 +321,10 @@ export default async function BrandPage({ params }: PageProps) {
                   <div>
                     <span>Duration</span>
                     <strong>{opportunity.duration}</strong>
+                  </div>
+                  <div>
+                    <span>Pricing</span>
+                    <strong>{opportunity.pricing.type.replaceAll("_", " ")}</strong>
                   </div>
                   <span aria-hidden="true" className="brand-opportunity-arrow">
                     ↗

@@ -7051,6 +7051,64 @@ body {
   }
 }
 
+
+/* =========================================================
+   PASS 22A — BRAND DETAIL NETWORK DEPTH
+   ========================================================= */
+
+.brand-network-detail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px 14px;
+  margin-left: auto;
+  padding-left: 20px;
+}
+
+.brand-network-detail span {
+  color: var(--runsys-subtle);
+  font-size: 8px;
+  letter-spacing: 0.11em;
+  white-space: nowrap;
+}
+
+.brand-opportunity-meta {
+  grid-template-columns: repeat(3, minmax(70px, 1fr));
+}
+
+.brand-opportunity-meta > div {
+  min-width: 0;
+}
+
+.brand-opportunity-meta > div strong {
+  display: block;
+  max-width: 130px;
+  color: var(--runsys-bone);
+  font-size: 11px;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+@media (max-width: 700px) {
+  .brand-network-detail {
+    justify-content: flex-start;
+    margin-top: 8px;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .brand-opportunity-meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (max-width: 520px) {
+  .brand-opportunity-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* =========================================================
    PASS 16A — BRAND DISCOVERY WORLD
    ========================================================= */

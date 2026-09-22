@@ -284,25 +284,58 @@ const repository: RunsysRepository = {
   async getAthletes() {
     const sql = getSql();
 
-    const rows = await queryRows<AthleteRow>(sql`
-      SELECT
-        id,
-        slug,
-        name,
-        sport,
-        location,
-        discipline,
-        status,
-        bio,
-        hero_image,
-        secondary_image,
-        sponsorship_history,
-        journey
-      FROM athletes
-      ORDER BY name
-    `);
+    const [rows, eventRows, brandRows] = await Promise.all([
+      queryRows<AthleteRow>(sql`
+        SELECT
+          id,
+          slug,
+          name,
+          sport,
+          location,
+          discipline,
+          status,
+          bio,
+          hero_image,
+          secondary_image,
+          sponsorship_history,
+          journey
+        FROM athletes
+        ORDER BY name
+      `),
+      queryRows<{ athlete_id: string; slug: string }>(sql`
+        SELECT ea.athlete_id, e.slug
+        FROM event_athletes ea
+        JOIN events e ON e.id = ea.event_id
+        ORDER BY e.date
+      `),
+      queryRows<{ athlete_id: string; slug: string }>(sql`
+        SELECT ab.athlete_id, b.slug
+        FROM athlete_brands ab
+        JOIN brands b ON b.id = ab.brand_id
+        ORDER BY b.name
+      `),
+    ]);
 
-    return Promise.all(rows.map(hydrateAthlete));
+    const eventsByAthlete = new Map<string, string[]>();
+    const brandsByAthlete = new Map<string, string[]>();
+
+    for (const row of eventRows) {
+      const values = eventsByAthlete.get(row.athlete_id) ?? [];
+      values.push(row.slug);
+      eventsByAthlete.set(row.athlete_id, values);
+    }
+
+    for (const row of brandRows) {
+      const values = brandsByAthlete.get(row.athlete_id) ?? [];
+      values.push(row.slug);
+      brandsByAthlete.set(row.athlete_id, values);
+    }
+
+    return rows.map((row) => ({
+      ...mapAthlete(row),
+      events: eventsByAthlete.get(row.id) ?? [],
+      brands: brandsByAthlete.get(row.id) ?? [],
+    }));
   },
 
   async getAthlete(slug) {
@@ -333,21 +366,54 @@ const repository: RunsysRepository = {
   async getEvents() {
     const sql = getSql();
 
-    const rows = await queryRows<EventRow>(sql`
-      SELECT
-        id,
-        slug,
-        name,
-        location,
-        date::text,
-        sport,
-        description,
-        image
-      FROM events
-      ORDER BY date
-    `);
+    const [rows, athleteRows, brandRows] = await Promise.all([
+      queryRows<EventRow>(sql`
+        SELECT
+          id,
+          slug,
+          name,
+          location,
+          date::text,
+          sport,
+          description,
+          image
+        FROM events
+        ORDER BY date
+      `),
+      queryRows<{ event_id: string; slug: string }>(sql`
+        SELECT ea.event_id, a.slug
+        FROM event_athletes ea
+        JOIN athletes a ON a.id = ea.athlete_id
+        ORDER BY a.name
+      `),
+      queryRows<{ event_id: string; slug: string }>(sql`
+        SELECT eb.event_id, b.slug
+        FROM event_brands eb
+        JOIN brands b ON b.id = eb.brand_id
+        ORDER BY b.name
+      `),
+    ]);
 
-    return Promise.all(rows.map(hydrateEvent));
+    const athletesByEvent = new Map<string, string[]>();
+    const brandsByEvent = new Map<string, string[]>();
+
+    for (const row of athleteRows) {
+      const values = athletesByEvent.get(row.event_id) ?? [];
+      values.push(row.slug);
+      athletesByEvent.set(row.event_id, values);
+    }
+
+    for (const row of brandRows) {
+      const values = brandsByEvent.get(row.event_id) ?? [];
+      values.push(row.slug);
+      brandsByEvent.set(row.event_id, values);
+    }
+
+    return rows.map((row) => ({
+      ...mapEvent(row),
+      athleteSlugs: athletesByEvent.get(row.id) ?? [],
+      brandSlugs: brandsByEvent.get(row.id) ?? [],
+    }));
   },
 
   async getEvent(slug) {
@@ -374,20 +440,53 @@ const repository: RunsysRepository = {
   async getBrands() {
     const sql = getSql();
 
-    const rows = await queryRows<BrandRow>(sql`
-      SELECT
-        id,
-        slug,
-        name,
-        category,
-        location,
-        description,
-        image
-      FROM brands
-      ORDER BY name
-    `);
+    const [rows, athleteRows, eventRows] = await Promise.all([
+      queryRows<BrandRow>(sql`
+        SELECT
+          id,
+          slug,
+          name,
+          category,
+          location,
+          description,
+          image
+        FROM brands
+        ORDER BY name
+      `),
+      queryRows<{ brand_id: string; slug: string }>(sql`
+        SELECT ab.brand_id, a.slug
+        FROM athlete_brands ab
+        JOIN athletes a ON a.id = ab.athlete_id
+        ORDER BY a.name
+      `),
+      queryRows<{ brand_id: string; slug: string }>(sql`
+        SELECT eb.brand_id, e.slug
+        FROM event_brands eb
+        JOIN events e ON e.id = eb.event_id
+        ORDER BY e.date
+      `),
+    ]);
 
-    return Promise.all(rows.map(hydrateBrand));
+    const athletesByBrand = new Map<string, string[]>();
+    const eventsByBrand = new Map<string, string[]>();
+
+    for (const row of athleteRows) {
+      const values = athletesByBrand.get(row.brand_id) ?? [];
+      values.push(row.slug);
+      athletesByBrand.set(row.brand_id, values);
+    }
+
+    for (const row of eventRows) {
+      const values = eventsByBrand.get(row.brand_id) ?? [];
+      values.push(row.slug);
+      eventsByBrand.set(row.brand_id, values);
+    }
+
+    return rows.map((row) => ({
+      ...mapBrand(row),
+      athleteSlugs: athletesByBrand.get(row.id) ?? [],
+      eventSlugs: eventsByBrand.get(row.id) ?? [],
+    }));
   },
 
   async getBrand(slug) {

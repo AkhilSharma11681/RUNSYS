@@ -7229,6 +7229,72 @@ body {
   }
 }
 
+
+/* =========================================================
+   PASS 25A — EXPLORE SYSTEM INDEX
+   ========================================================= */
+
+.explore-entry-system {
+  display: flex;
+  align-items: end;
+  gap: 42px;
+}
+
+.explore-entry-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 26px;
+}
+
+.explore-entry-stats span {
+  display: grid;
+  gap: 5px;
+  color: var(--runsys-subtle);
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.explore-entry-stats strong {
+  color: var(--runsys-bone);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.explore-network-signals span {
+  transition: color 220ms var(--runsys-ease);
+}
+
+.explore-network-copy:hover .explore-network-signals span {
+  color: var(--runsys-bone);
+}
+
+@media (max-width: 900px) {
+  .explore-entry-system {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 22px;
+  }
+}
+
+@media (max-width: 600px) {
+  .explore-entry-stats {
+    gap: 14px 18px;
+  }
+
+  .explore-entry-stats strong {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explore-network-signals span {
+    transition: none;
+  }
+}
+
 /* =========================================================
    PASS 16A — BRAND DISCOVERY WORLD
    ========================================================= */

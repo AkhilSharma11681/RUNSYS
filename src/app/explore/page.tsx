@@ -50,7 +50,28 @@ export default async function ExplorePage() {
 
         <div className="explore-entry-meta">
           <span>DISCOVERY SYSTEM</span>
-          <div className="explore-entry-actions">
+
+          <div className="explore-entry-system">
+            <div className="explore-entry-stats">
+              <span>
+                <strong>{athletes.length.toString().padStart(2, "0")}</strong>
+                ATHLETES
+              </span>
+              <span>
+                <strong>{events.length.toString().padStart(2, "0")}</strong>
+                EVENTS
+              </span>
+              <span>
+                <strong>{brands.length.toString().padStart(2, "0")}</strong>
+                BRANDS
+              </span>
+              <span>
+                <strong>{opportunities.length.toString().padStart(2, "0")}</strong>
+                OPPORTUNITIES
+              </span>
+            </div>
+
+            <div className="explore-entry-actions">
             <Link href="/athletes">Athletes ↗</Link>
             <Link href="/events">Events ↗</Link>
             <Link href="/brands">Brands ↗</Link>
@@ -58,6 +79,7 @@ export default async function ExplorePage() {
             <span>SCROLL TO MOVE</span>
           </div>
         </div>
+      </div>
       </section>
 
       {featuredAthlete ? (
@@ -113,10 +135,10 @@ export default async function ExplorePage() {
             </p>
 
             <div className="explore-network-signals">
-              <span>ATHLETE</span>
-              <span>EVENT</span>
-              <span>BRAND</span>
-              <span>OPPORTUNITY</span>
+              <span>{athletes.length} ATHLETES</span>
+              <span>{events.length} EVENTS</span>
+              <span>{brands.length} BRANDS</span>
+              <span>{opportunities.length} OPPORTUNITIES</span>
             </div>
 
             <div className="explore-network-actions">

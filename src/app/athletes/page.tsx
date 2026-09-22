@@ -80,6 +80,12 @@ export default async function AthletesPage() {
 
                 <p>{featured.bio}</p>
 
+                <div className="athletes-featured-network">
+                  <span>{featured.events.length} EVENTS</span>
+                  <span>{featured.brands.length} BRANDS</span>
+                  <span>{featured.sponsorshipHistory.length} PARTNERSHIPS</span>
+                </div>
+
                 <span className="athletes-featured-link">
                   Enter athlete world ↗
                 </span>
@@ -148,6 +154,15 @@ export default async function AthletesPage() {
                     <span>{athlete.status}</span>
                     <span>{athlete.events.length} events</span>
                     <span>{athlete.brands.length} brands</span>
+                  </div>
+
+                  <div className="athlete-landscape-network">
+                    {athlete.events.slice(0, 2).map((event) => (
+                      <span key={event}>{event.replaceAll("-", " ")}</span>
+                    ))}
+                    {athlete.brands.slice(0, 2).map((brand) => (
+                      <span key={brand}>{brand.replaceAll("-", " ")}</span>
+                    ))}
                   </div>
                 </div>
 

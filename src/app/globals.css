@@ -11215,3 +11215,72 @@ body {
     transform: none;
   }
 }
+
+/* =========================================================
+   PASS 21 — ATHLETE NETWORK SIGNALS
+   ========================================================= */
+
+.athletes-featured-network {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 26px;
+  color: rgba(243, 240, 232, 0.54);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+}
+
+.athletes-featured-network span {
+  position: relative;
+}
+
+.athletes-featured-network span + span::before {
+  position: absolute;
+  top: 50%;
+  left: -13px;
+  width: 3px;
+  height: 3px;
+  content: "";
+  border-radius: 50%;
+  background: var(--runsys-signal);
+  transform: translateY(-50%);
+}
+
+.athlete-landscape-network {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 14px;
+  max-width: 500px;
+  margin-top: 16px;
+}
+
+.athlete-landscape-network span {
+  color: rgba(243, 240, 232, 0.42);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.athlete-landscape-network span + span::before {
+  margin-right: 14px;
+  color: var(--runsys-signal);
+  content: "·";
+}
+
+@media (max-width: 700px) {
+  .athletes-featured-network {
+    gap: 7px 16px;
+    margin-top: 22px;
+  }
+
+  .athlete-landscape-network {
+    margin-top: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .athletes-featured-network,
+  .athlete-landscape-network {
+    transition: none;
+  }
+}

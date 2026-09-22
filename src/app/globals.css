@@ -10515,3 +10515,160 @@ body {
   transform: none;
   background: var(--runsys-bone);
 }
+
+/* Explore / relationship network */
+.explore-network-entry {
+  position: relative;
+  min-height: 78vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+  align-items: center;
+  gap: clamp(3rem, 8vw, 10rem);
+  padding: clamp(5rem, 12vw, 11rem) 0;
+  overflow: hidden;
+}
+
+.explore-network-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 42rem;
+}
+
+.explore-network-signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: 2rem 0;
+  color: var(--runsys-subtle);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+}
+
+.explore-network-signals span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.explore-network-signals span:not(:last-child)::after {
+  content: "→";
+  color: var(--runsys-signal);
+}
+
+.explore-network-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+
+.explore-network-actions a {
+  color: var(--runsys-bone);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--runsys-bone) 25%, transparent);
+  padding-bottom: 0.45rem;
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.explore-network-actions a:hover {
+  border-color: var(--runsys-signal);
+  transform: translateX(4px);
+}
+
+.explore-network-orbit {
+  position: relative;
+  width: min(42vw, 34rem);
+  aspect-ratio: 1;
+  justify-self: end;
+  opacity: 0.9;
+  transform: rotate(-8deg);
+}
+
+.explore-network-orbit-line {
+  position: absolute;
+  inset: 12%;
+  border: 1px solid color-mix(in srgb, var(--runsys-bone) 14%, transparent);
+  border-radius: 50%;
+}
+
+.explore-network-orbit-line-a {
+  transform: rotate(38deg) scaleX(0.72);
+}
+
+.explore-network-orbit-line-b {
+  transform: rotate(-38deg) scaleX(0.72);
+}
+
+.explore-network-orbit-node {
+  position: absolute;
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 50%;
+  background: var(--runsys-bone);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--runsys-bone) 7%, transparent);
+}
+
+.explore-network-orbit-node-a {
+  top: 18%;
+  left: 25%;
+}
+
+.explore-network-orbit-node-b {
+  right: 15%;
+  top: 46%;
+  background: var(--runsys-signal);
+  box-shadow: 0 0 0 7px color-mix(in srgb, var(--runsys-signal) 9%, transparent);
+}
+
+.explore-network-orbit-node-c {
+  bottom: 16%;
+  left: 42%;
+}
+
+@media (max-width: 800px) {
+  .explore-network-entry {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 3rem;
+  }
+
+  .explore-network-orbit {
+    width: min(82vw, 28rem);
+    justify-self: center;
+    order: -1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .explore-network-orbit {
+    animation: explore-network-drift 18s ease-in-out infinite alternate;
+  }
+
+  .explore-network-orbit-node-b {
+    animation: explore-network-pulse 3s ease-in-out infinite;
+  }
+}
+
+@keyframes explore-network-drift {
+  from {
+    transform: rotate(-8deg) translate3d(-8px, 4px, 0);
+  }
+
+  to {
+    transform: rotate(-2deg) translate3d(8px, -8px, 0);
+  }
+}
+
+@keyframes explore-network-pulse {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}

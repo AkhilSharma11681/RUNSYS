@@ -5,13 +5,23 @@ import {
   getVisualAthletes,
   getVisualEvents,
 } from "@/lib/visual-repository";
+import { getRepository } from "@/lib/repository";
 
 export default async function ExplorePage() {
-  const athletes = await getVisualAthletes();
-  const events = await getVisualEvents();
+  const repository = getRepository();
+
+  const [athletes, events, brands, opportunities] =
+    await Promise.all([
+      getVisualAthletes(),
+      getVisualEvents(),
+      repository.getBrands(),
+      repository.getOpportunities(),
+    ]);
 
   const featuredAthlete = athletes[0];
   const featuredEvent = events[0];
+  const featuredBrand = brands[0];
+  const featuredOpportunity = opportunities[0];
 
   return (
     <main className="explore-world">
@@ -43,6 +53,8 @@ export default async function ExplorePage() {
           <div className="explore-entry-actions">
             <Link href="/athletes">Athletes ↗</Link>
             <Link href="/events">Events ↗</Link>
+            <Link href="/brands">Brands ↗</Link>
+            <Link href="/opportunities">Opportunities ↗</Link>
             <span>SCROLL TO MOVE</span>
           </div>
         </div>
@@ -70,6 +82,60 @@ export default async function ExplorePage() {
         </section>
       ) : null}
 
+      {featuredBrand || featuredOpportunity ? (
+        <section className="explore-network-entry">
+          <div className="explore-network-orbit" aria-hidden="true">
+            <span className="explore-network-orbit-line explore-network-orbit-line-a" />
+            <span className="explore-network-orbit-line explore-network-orbit-line-b" />
+            <span className="explore-network-orbit-node explore-network-orbit-node-a" />
+            <span className="explore-network-orbit-node explore-network-orbit-node-b" />
+            <span className="explore-network-orbit-node explore-network-orbit-node-c" />
+          </div>
+          <div className="explore-world-label">
+            <span>03</span>
+            <span>COMMERCIAL NETWORK</span>
+          </div>
+
+          <div className="explore-network-copy">
+            <div className="runsys-micro text-[var(--runsys-muted)]">
+              Live from RUNSYS
+            </div>
+
+            <h2 className="explore-bridge-title runsys-display">
+              Sport becomes
+              <br />
+              opportunity.
+            </h2>
+
+            <p>
+              Move from the sporting environment into the brands and
+              commercial opportunities already connected to it.
+            </p>
+
+            <div className="explore-network-signals">
+              <span>ATHLETE</span>
+              <span>EVENT</span>
+              <span>BRAND</span>
+              <span>OPPORTUNITY</span>
+            </div>
+
+            <div className="explore-network-actions">
+              {featuredBrand ? (
+                <Link href={`/brands/${featuredBrand.slug}`}>
+                  Enter {featuredBrand.name} ↗
+                </Link>
+              ) : null}
+
+              {featuredOpportunity ? (
+                <Link href={`/opportunities/${featuredOpportunity.slug}`}>
+                  Explore opportunity ↗
+                </Link>
+              ) : null}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <section className="explore-bridge">
         <div className="explore-bridge-line" />
 
@@ -91,7 +157,7 @@ export default async function ExplorePage() {
         </div>
 
         <div className="explore-bridge-index">
-          <span>03</span>
+          <span>04</span>
           <span>RELATIONSHIPS</span>
         </div>
       </section>

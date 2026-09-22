@@ -153,7 +153,7 @@ export default async function HomePage() {
                   </p>
 
                   <div className="mt-8 flex flex-wrap items-center gap-3">
-                    <InterestButton opportunityTitle={opportunity.title} />
+                    <InterestButton opportunitySlug={opportunity.slug} />
 
                     <EntityLink
                       href={`/opportunities/${opportunity.slug}`}

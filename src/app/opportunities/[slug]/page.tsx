@@ -405,7 +405,7 @@ export default async function OpportunityPage({
               </span>
             </div>
 
-            <InterestButton opportunityTitle={opportunity.title} />
+            <InterestButton opportunitySlug={opportunity.slug} />
 
             <div className="mt-4 text-center text-xs leading-5 text-[var(--runsys-muted)]">
               No purchase is created. Your interest simply

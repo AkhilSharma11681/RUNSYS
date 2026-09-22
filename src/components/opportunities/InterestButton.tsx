@@ -3,11 +3,11 @@
 import { FormEvent, useState } from "react";
 
 type InterestButtonProps = {
-  opportunityTitle?: string;
+  opportunitySlug?: string;
 };
 
 export function InterestButton({
-  opportunityTitle = "this opportunity",
+  opportunitySlug = "this opportunity",
 }: InterestButtonProps) {
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -33,7 +33,7 @@ export function InterestButton({
           name: formData.get("name"),
           email: formData.get("email"),
           message: formData.get("message"),
-          opportunity: opportunityTitle,
+          opportunity: opportunitySlug,
         }),
       });
 
@@ -65,7 +65,7 @@ export function InterestButton({
         <span className="interest-success-signal" aria-hidden="true" />
         <div>
           <strong>Interest registered.</strong>
-          <span>We have your request for {opportunityTitle}.</span>
+          <span>We have your request for {opportunitySlug}.</span>
         </div>
       </div>
     );
@@ -113,7 +113,7 @@ export function InterestButton({
               interest.
             </h2>
 
-            <p className="interest-context">{opportunityTitle}</p>
+            <p className="interest-context">{opportunitySlug}</p>
 
             <form onSubmit={handleSubmit} className="interest-form">
               <label>

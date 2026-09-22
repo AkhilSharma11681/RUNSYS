@@ -396,7 +396,7 @@ export default async function AthletePage({
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <InterestButton opportunityTitle={firstOpportunity.title} />
+                <InterestButton opportunitySlug={firstOpportunity.slug} />
 
                 <EntityLink
                   href={`/opportunities/${firstOpportunity.slug}`}

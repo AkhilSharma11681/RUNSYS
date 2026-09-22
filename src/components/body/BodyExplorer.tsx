@@ -12,16 +12,25 @@ type BodyExplorerProps = {
   opportunity: VisualOpportunity;
 };
 
+function placementType(value: string): BodyPlacement | null {
+  const placement = value.toLowerCase();
+
+  if (placement.includes("calf")) return "calf";
+  if (placement.includes("forearm")) return "forearm";
+
+  return null;
+}
+
 export function BodyExplorer({ opportunity }: BodyExplorerProps) {
-  const initialPlacement: BodyPlacement = opportunity.placement
-    .toLowerCase()
-    .includes("calf")
-    ? "calf"
-    : "forearm";
+  const availablePlacement = placementType(opportunity.placement);
+  const initialPlacement = availablePlacement ?? "calf";
 
   const [selected, setSelected] = useState<BodyPlacement>(initialPlacement);
 
   const isCalf = selected === "calf";
+  const isForearm = selected === "forearm";
+  const hasCalfInventory = availablePlacement === "calf";
+  const hasForearmInventory = availablePlacement === "forearm";
 
   return (
     <section className="body-world" aria-labelledby="body-world-title">
@@ -66,33 +75,41 @@ export function BodyExplorer({ opportunity }: BodyExplorerProps) {
               <div className="body-leg body-leg-right" />
             </div>
 
-            <button
-              type="button"
-              aria-label="Select right calf sponsorship placement"
-              aria-pressed={isCalf}
-              className={`body-hotspot body-hotspot-calf ${
-                isCalf ? "body-hotspot-selected" : ""
-              }`}
-              onClick={() => setSelected("calf")}
-            >
-              <span className="body-hotspot-dot" />
-              <span className="body-hotspot-line" />
-              <span className="body-hotspot-label">RIGHT CALF</span>
-            </button>
+            {hasCalfInventory ? (
+              <button
+                type="button"
+                aria-label="Select calf sponsorship placement"
+                aria-pressed={isCalf}
+                className={`body-hotspot body-hotspot-calf ${
+                  isCalf ? "body-hotspot-selected" : ""
+                }`}
+                onClick={() => setSelected("calf")}
+              >
+                <span className="body-hotspot-dot" />
+                <span className="body-hotspot-line" />
+                <span className="body-hotspot-label">
+                  {opportunity.placement}
+                </span>
+              </button>
+            ) : null}
 
-            <button
-              type="button"
-              aria-label="Select right forearm sponsorship placement"
-              aria-pressed={!isCalf}
-              className={`body-hotspot body-hotspot-forearm ${
-                !isCalf ? "body-hotspot-selected" : ""
-              }`}
-              onClick={() => setSelected("forearm")}
-            >
-              <span className="body-hotspot-dot" />
-              <span className="body-hotspot-line" />
-              <span className="body-hotspot-label">RIGHT FOREARM</span>
-            </button>
+            {hasForearmInventory ? (
+              <button
+                type="button"
+                aria-label="Select forearm sponsorship placement"
+                aria-pressed={isForearm}
+                className={`body-hotspot body-hotspot-forearm ${
+                  isForearm ? "body-hotspot-selected" : ""
+                }`}
+                onClick={() => setSelected("forearm")}
+              >
+                <span className="body-hotspot-dot" />
+                <span className="body-hotspot-line" />
+                <span className="body-hotspot-label">
+                  {opportunity.placement}
+                </span>
+              </button>
+            ) : null}
           </div>
 
           <div className="body-map-label body-map-label-bottom">
@@ -107,8 +124,8 @@ export function BodyExplorer({ opportunity }: BodyExplorerProps) {
           }`}
         >
           <div className="body-context-topline">
-            <Signal tone={isCalf ? "available" : "neutral"}>
-              {isCalf ? "Available inventory" : "Placement context"}
+            <Signal tone="available">
+              Available inventory
             </Signal>
 
             <span className="body-context-index">
@@ -123,7 +140,7 @@ export function BodyExplorer({ opportunity }: BodyExplorerProps) {
               </div>
 
               <h3 className="body-context-title">
-                {isCalf ? "Right calf" : "Right forearm"}
+                {opportunity.placement}
               </h3>
             </div>
 
@@ -198,7 +215,7 @@ export function BodyExplorer({ opportunity }: BodyExplorerProps) {
             <span>{opportunity.inventoryType}</span>
           </div>
 
-          {isCalf ? (
+          {availablePlacement ? (
             <div className="body-context-action">
               <EntityLink
                 href={`/opportunities/${opportunity.slug}`}

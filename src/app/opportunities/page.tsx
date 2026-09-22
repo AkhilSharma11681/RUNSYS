@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getRepository } from "@/lib/repository";
+import { EntityLink } from "@/components/spatial/EntityLink";
 
 export const metadata: Metadata = {
   title: "Opportunities",
@@ -10,9 +11,21 @@ export const metadata: Metadata = {
 };
 
 export default async function OpportunitiesPage() {
-  const opportunities = await getRepository().getOpportunities();
+  const repository = getRepository();
+
+  const [opportunities, athletes, brands, events] = await Promise.all([
+    repository.getOpportunities(),
+    repository.getAthletes(),
+    repository.getBrands(),
+    repository.getEvents(),
+  ]);
+
   const featured = opportunities[0];
   const secondary = opportunities.slice(1);
+
+  const athleteBySlug = new Map(athletes.map((item) => [item.slug, item]));
+  const brandBySlug = new Map(brands.map((item) => [item.slug, item]));
+  const eventBySlug = new Map(events.map((item) => [item.slug, item]));
 
   return (
     <main className="opportunities-world">
@@ -80,6 +93,35 @@ export default async function OpportunitiesPage() {
 
                 <p>{featured.description}</p>
 
+                <div className="opportunity-index-relationships">
+                  {athleteBySlug.get(featured.athleteSlug) ? (
+                    <EntityLink
+                      href={`/athletes/${featured.athleteSlug}`}
+                      transitionName={`athlete-${featured.athleteSlug}`}
+                    >
+                      {athleteBySlug.get(featured.athleteSlug)?.name}
+                    </EntityLink>
+                  ) : null}
+
+                  {eventBySlug.get(featured.eventSlug) ? (
+                    <EntityLink
+                      href={`/events/${featured.eventSlug}`}
+                      transitionName={`event-${featured.eventSlug}`}
+                    >
+                      {eventBySlug.get(featured.eventSlug)?.name}
+                    </EntityLink>
+                  ) : null}
+
+                  {brandBySlug.get(featured.brandSlug) ? (
+                    <EntityLink
+                      href={`/brands/${featured.brandSlug}`}
+                      transitionName={`brand-${featured.brandSlug}`}
+                    >
+                      {brandBySlug.get(featured.brandSlug)?.name}
+                    </EntityLink>
+                  ) : null}
+                </div>
+
                 <span className="opportunities-featured-link">
                   Enter opportunity ↗
                 </span>
@@ -146,6 +188,24 @@ export default async function OpportunitiesPage() {
                   <div className="opportunity-landscape-meta">
                     <span>{opportunity.duration}</span>
                     <span>{opportunity.availability}</span>
+                  </div>
+
+                  <div className="opportunity-index-relationships opportunity-index-relationships-compact">
+                    {athleteBySlug.get(opportunity.athleteSlug) ? (
+                      <span>
+                        {athleteBySlug.get(opportunity.athleteSlug)?.name}
+                      </span>
+                    ) : null}
+                    {eventBySlug.get(opportunity.eventSlug) ? (
+                      <span>
+                        {eventBySlug.get(opportunity.eventSlug)?.name}
+                      </span>
+                    ) : null}
+                    {brandBySlug.get(opportunity.brandSlug) ? (
+                      <span>
+                        {brandBySlug.get(opportunity.brandSlug)?.name}
+                      </span>
+                    ) : null}
                   </div>
                 </div>
 

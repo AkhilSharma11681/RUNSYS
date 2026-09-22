@@ -10691,3 +10691,55 @@ body {
     animation-duration: 1ms;
   }
 }
+
+/* Opportunity relationship layer */
+.opportunity-index-relationships {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+  margin-top: 1.5rem;
+  color: var(--runsys-secondary);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+}
+
+.opportunity-index-relationships a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--runsys-bone) 20%, transparent);
+  padding-bottom: 0.25rem;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.opportunity-index-relationships a:hover {
+  color: var(--runsys-bone);
+  border-color: var(--runsys-signal);
+}
+
+.opportunity-index-relationships a:not(:last-child)::after,
+.opportunity-index-relationships span:not(:last-child)::after {
+  content: "·";
+  margin-left: 1rem;
+  color: var(--runsys-signal);
+}
+
+.opportunity-index-relationships-compact {
+  margin-top: 0.8rem;
+  color: var(--runsys-muted);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 700px) {
+  .opportunity-index-relationships {
+    gap: 0.45rem 0.75rem;
+  }
+
+  .opportunity-index-relationships a:not(:last-child)::after,
+  .opportunity-index-relationships span:not(:last-child)::after {
+    margin-left: 0.75rem;
+  }
+}

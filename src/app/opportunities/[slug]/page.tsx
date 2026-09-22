@@ -133,6 +133,11 @@ export default async function OpportunityPage({
             {visualOpportunity.duration} ·{" "}
             {visualOpportunity.exclusivityLabel}
           </div>
+
+          <div className="opportunity-context-signal">
+            <span>{opportunity.inventoryType}</span>
+            <span>{opportunity.pricing.type.replaceAll("_", " ")}</span>
+          </div>
         </GlassSurface>
 
         <div className="opportunity-immersion-scroll runsys-micro">
@@ -216,6 +221,11 @@ export default async function OpportunityPage({
               />
 
               <EntityMeta
+                eyebrow="Pricing"
+                value={opportunity.pricing.type.replaceAll("_", " ")}
+              />
+
+              <EntityMeta
                 eyebrow="Exclusivity"
                 value={opportunity.exclusivity}
               />
@@ -263,7 +273,7 @@ export default async function OpportunityPage({
 
             <div className="opportunity-relation-copy">
               <div className="runsys-micro">
-                Athlete
+                Athlete / Relationship
               </div>
               <strong>{athlete.name}</strong>
               <span>Enter athlete world ↗</span>
@@ -287,7 +297,7 @@ export default async function OpportunityPage({
 
             <div className="opportunity-relation-copy">
               <div className="runsys-micro">
-                Event
+                Event / Context
               </div>
               <strong>{event.name}</strong>
               <span>Enter event world ↗</span>
@@ -311,7 +321,7 @@ export default async function OpportunityPage({
 
             <div className="opportunity-relation-copy">
               <div className="runsys-micro">
-                Brand
+                Brand / Commercial
               </div>
               <strong>{brand.name}</strong>
               <span>Enter brand world ↗</span>

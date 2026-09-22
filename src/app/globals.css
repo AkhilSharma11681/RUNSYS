@@ -7109,6 +7109,79 @@ body {
   }
 }
 
+
+/* =========================================================
+   PASS 23A — OPPORTUNITY COMMERCIAL SIGNALS
+   ========================================================= */
+
+.opportunity-index-commercial {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(243, 240, 232, 0.14);
+}
+
+.opportunity-index-commercial span {
+  display: grid;
+  gap: 5px;
+  color: rgba(243, 240, 232, 0.48);
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.opportunity-index-commercial strong {
+  color: var(--runsys-bone);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.opportunity-landscape-meta {
+  flex-wrap: wrap;
+}
+
+.opportunity-landscape-meta span:last-child {
+  color: rgba(243, 240, 232, 0.72);
+}
+
+.opportunity-context-signal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(243, 240, 232, 0.1);
+}
+
+.opportunity-context-signal span {
+  color: var(--runsys-muted);
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 700px) {
+  .opportunity-index-commercial {
+    gap: 18px;
+    margin-top: 22px;
+  }
+
+  .opportunity-context-signal {
+    margin-top: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opportunity-index-commercial,
+  .opportunity-context-signal {
+    transition: none;
+  }
+}
+
 /* =========================================================
    PASS 16A — BRAND DISCOVERY WORLD
    ========================================================= */

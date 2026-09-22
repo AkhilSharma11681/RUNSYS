@@ -171,6 +171,21 @@ export default async function OpportunitiesPage({
 
                 <p>{featured.description}</p>
 
+                <div className="opportunity-index-commercial">
+                  <span>
+                    <strong>{featured.inventoryType}</strong>
+                    INVENTORY
+                  </span>
+                  <span>
+                    <strong>{featured.duration}</strong>
+                    DURATION
+                  </span>
+                  <span>
+                    <strong>{featured.pricing.type.replaceAll("_", " ")}</strong>
+                    PRICING
+                  </span>
+                </div>
+
                 <div className="opportunity-index-relationships">
                   {athleteBySlug.get(featured.athleteSlug) ? (
                     <EntityLink
@@ -272,6 +287,7 @@ export default async function OpportunitiesPage({
                   <div className="opportunity-landscape-meta">
                     <span>{opportunity.duration}</span>
                     <span>{opportunity.availability}</span>
+                    <span>{opportunity.pricing.type.replaceAll("_", " ")}</span>
                   </div>
 
                   <div className="opportunity-index-relationships opportunity-index-relationships-compact">

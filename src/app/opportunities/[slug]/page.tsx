@@ -196,18 +196,28 @@ export default async function OpportunityPage({
               />
 
               <EntityMeta
+                eyebrow="Inventory"
+                value={opportunity.inventoryType}
+              />
+
+              <EntityMeta
                 eyebrow="Placement"
-                value={visualOpportunity.placement}
+                value={opportunity.placement ?? "Defined in opportunity"}
               />
 
               <EntityMeta
                 eyebrow="Duration"
-                value={visualOpportunity.duration}
+                value={opportunity.duration}
               />
 
               <EntityMeta
-                eyebrow="Rights"
-                value={visualOpportunity.rightsLabel}
+                eyebrow="Availability"
+                value={opportunity.availability}
+              />
+
+              <EntityMeta
+                eyebrow="Exclusivity"
+                value={opportunity.exclusivity}
               />
             </div>
           </GlassSurface>
@@ -398,11 +408,9 @@ export default async function OpportunityPage({
             </div>
 
             <div className="opportunity-action-meta">
-              <span>{visualOpportunity.duration}</span>
-              <span>{visualOpportunity.rightsLabel}</span>
-              <span>
-                {visualOpportunity.exclusivityLabel}
-              </span>
+              <span>{opportunity.duration}</span>
+              <span>{opportunity.pricing.type}</span>
+              <span>{opportunity.exclusivity}</span>
             </div>
 
             <InterestButton opportunitySlug={opportunity.slug} />

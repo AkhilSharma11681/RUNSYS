@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { InventoryType } from "@/types/domain";
 import Image from "next/image";
 import { getRepository } from "@/lib/repository";
 import { EntityLink } from "@/components/spatial/EntityLink";
@@ -10,15 +11,51 @@ export const metadata: Metadata = {
     "Explore live sponsorship opportunities connecting athletes, brands, events, inventory, and time.",
 };
 
-export default async function OpportunitiesPage() {
+type OpportunitiesPageProps = {
+  searchParams: Promise<{
+    inventory?: string;
+  }>;
+};
+
+const inventoryLenses: Array<{
+  value: InventoryType | "ALL";
+  label: string;
+}> = [
+  { value: "ALL", label: "All" },
+  { value: "BODY", label: "Body" },
+  { value: "EVENT", label: "Event" },
+  { value: "CONTENT", label: "Content" },
+  { value: "PRODUCT", label: "Product" },
+  { value: "EXPERIENCE", label: "Experience" },
+  { value: "ATHLETE", label: "Athlete" },
+];
+
+export default async function OpportunitiesPage({
+  searchParams,
+}: OpportunitiesPageProps) {
+  const params = await searchParams;
+  const requestedInventory = params.inventory?.toUpperCase();
+  const activeInventory = inventoryLenses.some(
+    (lens) => lens.value === requestedInventory,
+  )
+    ? (requestedInventory as InventoryType)
+    : "ALL";
+
   const repository = getRepository();
 
-  const [opportunities, athletes, brands, events] = await Promise.all([
+  const [allOpportunities, athletes, brands, events] = await Promise.all([
     repository.getOpportunities(),
     repository.getAthletes(),
     repository.getBrands(),
     repository.getEvents(),
   ]);
+
+  const opportunities =
+    activeInventory === "ALL"
+      ? allOpportunities
+      : allOpportunities.filter(
+          (opportunity) => opportunity.inventoryType === activeInventory,
+        );
 
   const featured = opportunities[0];
   const secondary = opportunities.slice(1);
@@ -59,6 +96,47 @@ export default async function OpportunitiesPage() {
           <span>SCROLL TO EXPLORE</span>
         </div>
       </section>
+
+      <nav
+        className="opportunity-lens"
+        aria-label="Filter opportunities by inventory type"
+      >
+        <div className="opportunity-lens-label">
+          <span>VIEW BY</span>
+          <span>INVENTORY</span>
+        </div>
+
+        <div className="opportunity-lens-options">
+          {inventoryLenses.map((lens) => {
+            const active = lens.value === activeInventory;
+
+            return (
+              <Link
+                key={lens.value}
+                href={
+                  lens.value === "ALL"
+                    ? "/opportunities"
+                    : `/opportunities?inventory=${lens.value}`
+                }
+                aria-current={active ? "page" : undefined}
+                className={`opportunity-lens-link ${
+                  active ? "opportunity-lens-link-active" : ""
+                }`}
+              >
+                <span>{lens.label}</span>
+                <span>
+                  {lens.value === "ALL"
+                    ? allOpportunities.length
+                    : allOpportunities.filter(
+                        (opportunity) =>
+                          opportunity.inventoryType === lens.value,
+                      ).length}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
 
       {featured ? (
         <section className="opportunities-featured">
@@ -133,6 +211,11 @@ export default async function OpportunitiesPage() {
 
       <section className="opportunities-landscape">
         <div className="opportunities-landscape-heading">
+          <div className="opportunities-active-lens">
+            {activeInventory === "ALL"
+              ? "All commercial inventory"
+              : `${activeInventory} inventory`}
+          </div>
           <div>
             <div className="runsys-micro text-[var(--runsys-muted)]">
               Commercial landscape
@@ -151,8 +234,9 @@ export default async function OpportunitiesPage() {
           </p>
         </div>
 
-        <div className="opportunities-grid">
-          {secondary.map((opportunity, index) => (
+        {featured ? (
+          <div className="opportunities-grid">
+            {secondary.map((opportunity, index) => (
             <Link
               key={opportunity.id}
               href={`/opportunities/${opportunity.slug}`}
@@ -214,8 +298,18 @@ export default async function OpportunitiesPage() {
                 </span>
               </div>
             </Link>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="opportunities-empty">
+            <div className="runsys-micro">No open objects</div>
+            <p>
+              There are no active opportunities in this inventory category
+              right now.
+            </p>
+            <Link href="/opportunities">Return to all opportunities ↗</Link>
+          </div>
+        )}
       </section>
 
       <section className="opportunities-definition">

@@ -10743,3 +10743,114 @@ body {
     margin-left: 0.75rem;
   }
 }
+
+/* Opportunity inventory lens */
+.opportunity-lens {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  padding: 0 0 clamp(4rem, 8vw, 7rem);
+}
+
+.opportunity-lens-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--runsys-subtle);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+}
+
+.opportunity-lens-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.opportunity-lens-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.5rem;
+  padding: 0.65rem 0.8rem;
+  color: var(--runsys-muted);
+  border: 1px solid color-mix(in srgb, var(--runsys-bone) 10%, transparent);
+  text-decoration: none;
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.opportunity-lens-link span:last-child {
+  color: var(--runsys-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.opportunity-lens-link:hover {
+  color: var(--runsys-bone);
+  border-color: color-mix(in srgb, var(--runsys-bone) 25%, transparent);
+  transform: translateY(-2px);
+}
+
+.opportunity-lens-link-active {
+  color: var(--runsys-bone);
+  border-color: color-mix(in srgb, var(--runsys-signal) 55%, transparent);
+  background: color-mix(in srgb, var(--runsys-signal) 7%, transparent);
+}
+
+.opportunity-lens-link-active span:last-child {
+  color: var(--runsys-signal);
+}
+
+.opportunities-active-lens {
+  margin-bottom: 0.7rem;
+  color: var(--runsys-signal);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.opportunities-empty {
+  min-height: 28rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-top: 1px solid color-mix(in srgb, var(--runsys-bone) 10%, transparent);
+}
+
+.opportunities-empty p {
+  max-width: 32rem;
+  margin: 1rem 0 1.5rem;
+  color: var(--runsys-muted);
+}
+
+.opportunities-empty a {
+  color: var(--runsys-bone);
+  font-size: 0.72rem;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--runsys-bone) 25%, transparent);
+  padding-bottom: 0.4rem;
+}
+
+@media (max-width: 700px) {
+  .opportunity-lens {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .opportunity-lens-label {
+    flex-direction: row;
+    gap: 0.7rem;
+  }
+
+  .opportunity-lens-link {
+    min-height: 2.75rem;
+  }
+}

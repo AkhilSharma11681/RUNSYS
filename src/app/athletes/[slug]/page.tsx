@@ -147,6 +147,12 @@ export default async function AthletePage({
             <div className="athlete-context-meta">
               {visualAthlete.sport} · {visualAthlete.status}
             </div>
+
+            <div className="athlete-context-network">
+              <span>{events.length} EVENTS</span>
+              <span>{brands.length} BRANDS</span>
+              <span>{opportunities.length} OPEN</span>
+            </div>
           </GlassSurface>
 
           {firstOpportunity ? (
@@ -371,6 +377,11 @@ export default async function AthletePage({
 
               <div className="athlete-opportunity-data">
                 <EntityMeta
+                  eyebrow="Inventory"
+                  value={firstOpportunity.inventoryType}
+                />
+
+                <EntityMeta
                   eyebrow="Placement"
                   value={firstOpportunity.placement}
                 />
@@ -388,6 +399,11 @@ export default async function AthletePage({
                 <EntityMeta
                   eyebrow="Exclusivity"
                   value={firstOpportunity.exclusivityLabel}
+                />
+
+                <EntityMeta
+                  eyebrow="Pricing"
+                  value={firstOpportunity.pricing.type.replaceAll("_", " ")}
                 />
               </div>
 

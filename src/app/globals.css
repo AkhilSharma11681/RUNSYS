@@ -7182,6 +7182,53 @@ body {
   }
 }
 
+
+/* =========================================================
+   PASS 24A — ATHLETE COMMERCIAL CONVERGENCE
+   ========================================================= */
+
+.athlete-context-network {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 16px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(243, 240, 232, 0.1);
+}
+
+.athlete-context-network span {
+  color: var(--runsys-muted);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.athlete-opportunity-data {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .athlete-opportunity-data {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .athlete-context-network {
+    gap: 6px 12px;
+  }
+
+  .athlete-opportunity-data {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .athlete-context-network {
+    transition: none;
+  }
+}
+
 /* =========================================================
    PASS 16A — BRAND DISCOVERY WORLD
    ========================================================= */

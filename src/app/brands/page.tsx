@@ -10,9 +10,23 @@ export const metadata: Metadata = {
 };
 
 export default async function BrandsPage() {
-  const brands = await getRepository().getBrands();
+  const repository = getRepository();
+  const [brands, opportunities] = await Promise.all([
+    repository.getBrands(),
+    repository.getOpportunities(),
+  ]);
+
   const featured = brands[0];
   const secondary = brands.slice(1);
+
+  const opportunitiesByBrand = new Map<string, number>();
+
+  for (const opportunity of opportunities) {
+    opportunitiesByBrand.set(
+      opportunity.brandSlug,
+      (opportunitiesByBrand.get(opportunity.brandSlug) ?? 0) + 1,
+    );
+  }
 
   return (
     <main className="brands-world">
@@ -72,6 +86,21 @@ export default async function BrandsPage() {
 
               <p>{featured.description}</p>
 
+              <div className="brands-featured-network">
+                <span>
+                  <strong>{featured.athleteSlugs.length.toString().padStart(2, "0")}</strong>
+                  ATHLETES
+                </span>
+                <span>
+                  <strong>{featured.eventSlugs.length.toString().padStart(2, "0")}</strong>
+                  EVENTS
+                </span>
+                <span>
+                  <strong>{(opportunitiesByBrand.get(featured.slug) ?? 0).toString().padStart(2, "0")}</strong>
+                  OPPORTUNITIES
+                </span>
+              </div>
+
               <span className="brands-featured-link">
                 Enter brand world ↗
               </span>
@@ -130,6 +159,12 @@ export default async function BrandsPage() {
                 <div>
                   <h3>{brand.name}</h3>
                   <p>{brand.location}</p>
+                </div>
+
+                <div className="brands-landscape-network">
+                  <span>{brand.athleteSlugs.length} ATHLETES</span>
+                  <span>{brand.eventSlugs.length} EVENTS</span>
+                  <span>{opportunitiesByBrand.get(brand.slug) ?? 0} OPPORTUNITIES</span>
                 </div>
 
                 <span className="brands-landscape-arrow" aria-hidden="true">

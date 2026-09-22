@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { GlassSurface } from "@/components/materials/GlassSurface";
 import { Signal } from "@/components/ui/Signal";
+import { EntityLink } from "@/components/spatial/EntityLink";
 import type { VisualOpportunity } from "@/lib/visual-repository";
 
 type BodyPlacement = "calf" | "forearm";
@@ -140,6 +141,19 @@ export function BodyExplorer({ opportunity }: BodyExplorerProps) {
           <div className="body-context-list">
             <div className="body-context-row">
               <div className="runsys-micro text-[var(--runsys-muted)]">
+                Athlete
+              </div>
+              <EntityLink
+                href={`/athletes/${opportunity.athleteSlug}`}
+                transitionName={`athlete-${opportunity.athleteSlug}`}
+                className="body-context-link"
+              >
+                View athlete ↗
+              </EntityLink>
+            </div>
+
+            <div className="body-context-row">
+              <div className="runsys-micro text-[var(--runsys-muted)]">
                 Event
               </div>
               <div>{opportunity.eventName}</div>
@@ -157,7 +171,17 @@ export function BodyExplorer({ opportunity }: BodyExplorerProps) {
                 Opportunity
               </div>
               <div>
-                {isCalf ? opportunity.title : "Contextual placement"}
+                {isCalf ? (
+                  <EntityLink
+                    href={`/opportunities/${opportunity.slug}`}
+                    transitionName={`opportunity-${opportunity.slug}`}
+                    className="body-context-link"
+                  >
+                    {opportunity.title} ↗
+                  </EntityLink>
+                ) : (
+                  "Contextual placement"
+                )}
               </div>
             </div>
 
@@ -173,6 +197,18 @@ export function BodyExplorer({ opportunity }: BodyExplorerProps) {
             <span>SPONSORSHIP INVENTORY</span>
             <span>{opportunity.inventoryType}</span>
           </div>
+
+          {isCalf ? (
+            <div className="body-context-action">
+              <EntityLink
+                href={`/opportunities/${opportunity.slug}`}
+                transitionName={`opportunity-${opportunity.slug}`}
+                className="editorial-action"
+              >
+                Enter commercial object ↗
+              </EntityLink>
+            </div>
+          ) : null}
         </GlassSurface>
       </div>
     </section>

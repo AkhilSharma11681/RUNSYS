@@ -10854,3 +10854,26 @@ body {
     min-height: 2.75rem;
   }
 }
+
+/* Body inventory relationship links */
+.body-context-link {
+  color: var(--runsys-bone);
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.body-context-link:hover {
+  color: var(--runsys-signal);
+}
+
+.body-context-action {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid color-mix(in srgb, var(--runsys-bone) 10%, transparent);
+}
+
+@media (max-width: 700px) {
+  .body-context-action {
+    margin-top: 1rem;
+  }
+}

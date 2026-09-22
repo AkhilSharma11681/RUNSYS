@@ -10877,3 +10877,93 @@ body {
     margin-top: 1rem;
   }
 }
+
+/* ============================================================
+   RUNSYS — FINAL INTERACTION COHERENCE
+   Shared interaction language across entity + commercial surfaces.
+   ============================================================ */
+
+:where(
+  .spatial-link,
+  .world-link,
+  .editorial-action,
+  .athlete-relation-link,
+  .event-entity-link,
+  .event-opportunity-link,
+  .opportunity-relation-card,
+  .brand-network-link,
+  .brand-opportunity-row,
+  .explore-entry-actions a,
+  .opportunity-lens-link,
+  .runsys-footer-nav a,
+  .join-path,
+  .join-role
+) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:where(
+  .spatial-link,
+  .world-link,
+  .editorial-action,
+  .athlete-relation-link,
+  .event-entity-link,
+  .event-opportunity-link,
+  .opportunity-relation-card,
+  .brand-network-link,
+  .brand-opportunity-row,
+  .explore-entry-actions a,
+  .opportunity-lens-link,
+  .runsys-footer-nav a,
+  .join-path,
+  .join-role
+):focus-visible {
+  outline: 1px solid var(--runsys-bone);
+  outline-offset: 4px;
+}
+
+:where(
+  .spatial-link,
+  .world-link,
+  .editorial-action,
+  .athlete-relation-link,
+  .event-entity-link,
+  .event-opportunity-link,
+  .opportunity-relation-card,
+  .brand-network-link,
+  .brand-opportunity-row,
+  .explore-entry-actions a,
+  .opportunity-lens-link,
+  .runsys-footer-nav a,
+  .join-path,
+  .join-role
+) {
+  transition:
+    color var(--runsys-micro) var(--runsys-ease),
+    opacity var(--runsys-micro) var(--runsys-ease),
+    border-color var(--runsys-micro) var(--runsys-ease),
+    background-color var(--runsys-micro) var(--runsys-ease),
+    transform var(--runsys-context) var(--runsys-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(
+    .spatial-link,
+    .world-link,
+    .editorial-action,
+    .athlete-relation-link,
+    .event-entity-link,
+    .event-opportunity-link,
+    .opportunity-relation-card,
+    .brand-network-link,
+    .brand-opportunity-row,
+    .explore-entry-actions a,
+    .opportunity-lens-link,
+    .runsys-footer-nav a,
+    .join-path,
+    .join-role
+  ) {
+    transition: none;
+  }
+}
+

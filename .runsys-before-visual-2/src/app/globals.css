@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+:root {
+  --runsys-ink: #11110F;
+  --runsys-bone: #F3F0E8;
+  --runsys-bone-secondary: #E7E3D8;
+  --runsys-muted: #68665F;
+  --runsys-border: #CFCBC0;
+  --runsys-accent: #FF4D2E;
+  --runsys-white: #FFFFFF;
+
+  --background: var(--runsys-bone);
+  --foreground: var(--runsys-ink);
+
+  --font-display: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-interface: Arial, Helvetica, sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-11: 192px;
+
+  --content-max: 1600px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-runsys-ink: var(--runsys-ink);
+  --color-runsys-bone: var(--runsys-bone);
+  --color-runsys-bone-secondary: var(--runsys-bone-secondary);
+  --color-runsys-muted: var(--runsys-muted);
+  --color-runsys-border: var(--runsys-border);
+  --color-runsys-accent: var(--runsys-accent);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--runsys-bone);
+  color: var(--runsys-ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--runsys-bone);
+  color: var(--runsys-ink);
+  font-family: var(--font-interface);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--runsys-accent);
+  color: var(--runsys-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--runsys-accent);
+  outline-offset: 4px;
+}
+
+.runsys-container {
+  width: min(calc(100% - 48px), var(--content-max));
+  margin-inline: auto;
+}
+
+.runsys-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.runsys-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 0.88;
+}
+
+.runsys-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.runsys-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--runsys-border);
+}
+
+.runsys-section {
+  padding-block: 96px;
+}
+
+.runsys-section-tight {
+  padding-block: 64px;
+}
+
+.runsys-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--runsys-bone-secondary);
+}
+
+.runsys-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.runsys-hover-image {
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 400ms ease;
+}
+
+.group:hover .runsys-hover-image {
+  transform: scale(1.03);
+}
+
+@media (max-width: 900px) {
+  .runsys-container {
+    width: min(calc(100% - 32px), var(--content-max));
+  }
+
+  .runsys-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .runsys-section {
+    padding-block: 64px;
+  }
+
+  .runsys-section-tight {
+    padding-block: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

@@ -1,0 +1,2097 @@
+@import "tailwindcss";
+
+:root {
+  --runsys-ink: #0b0b0a;
+  --runsys-ink-900: #11110f;
+  --runsys-ink-800: #151513;
+  --runsys-ink-700: #1d1c19;
+
+  --runsys-bone: #f3f0e8;
+  --runsys-bone-soft: #e7e3d8;
+  --runsys-muted: #a5a29a;
+  --runsys-subtle: #706e68;
+
+  --runsys-signal: #ff4d2e;
+
+  --runsys-border: rgba(243, 240, 232, 0.13);
+  --runsys-border-strong: rgba(243, 240, 232, 0.24);
+
+  --runsys-glass-soft: rgba(16, 16, 14, 0.38);
+  --runsys-glass-dense: rgba(16, 16, 14, 0.72);
+
+  --runsys-blur-soft: 18px;
+  --runsys-blur-dense: 32px;
+
+  --runsys-radius-sm: 4px;
+  --runsys-radius-md: 8px;
+  --runsys-radius-lg: 12px;
+
+  --runsys-shadow-context:
+    0 18px 60px rgba(0, 0, 0, 0.28);
+
+  --runsys-shadow-deep:
+    0 30px 100px rgba(0, 0, 0, 0.42);
+
+  --runsys-ease:
+    cubic-bezier(0.22, 1, 0.36, 1);
+
+  --runsys-ease-soft:
+    cubic-bezier(0.16, 1, 0.3, 1);
+
+  --runsys-micro: 220ms;
+  --runsys-context: 420ms;
+  --runsys-entity: 680ms;
+  --runsys-deep: 900ms;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--runsys-ink);
+  color: var(--runsys-bone);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--runsys-ink);
+  color: var(--runsys-bone);
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--runsys-signal);
+  color: var(--runsys-bone);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+.runsys-display {
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.065em;
+}
+
+.runsys-micro {
+  font-size: 10px;
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.runsys-label {
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.runsys-copy {
+  color: var(--runsys-muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.site-shell {
+  min-height: 100svh;
+  background: var(--runsys-ink);
+}
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: 72px;
+  pointer-events: none;
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 32px;
+}
+
+.site-header a,
+.site-header button {
+  pointer-events: auto;
+}
+
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.site-logo-mark {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--runsys-signal);
+  box-shadow: 0 0 0 5px rgba(255, 77, 46, 0.08);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid rgba(243, 240, 232, 0.1);
+  border-radius: 999px;
+  background: rgba(11, 11, 10, 0.46);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.site-nav a {
+  padding: 9px 12px;
+  border-radius: 999px;
+  color: rgba(243, 240, 232, 0.62);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    color var(--runsys-micro) var(--runsys-ease),
+    background var(--runsys-micro) var(--runsys-ease);
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--runsys-bone);
+  background: rgba(243, 240, 232, 0.08);
+  outline: none;
+}
+
+.spatial-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.spatial-layer {
+  position: relative;
+  z-index: 1;
+}
+
+.spatial-layer-ambient {
+  z-index: 0;
+}
+
+.spatial-layer-media {
+  z-index: 1;
+}
+
+.spatial-layer-entity {
+  z-index: 2;
+}
+
+.spatial-layer-context {
+  z-index: 3;
+}
+
+.spatial-layer-foreground {
+  z-index: 4;
+}
+
+.entity-anchor {
+  position: relative;
+}
+
+.context-layer {
+  position: relative;
+}
+
+.relationship-layer {
+  position: relative;
+}
+
+.material-glass {
+  border: 1px solid var(--runsys-border);
+  box-shadow: var(--runsys-shadow-context);
+  color: var(--runsys-bone);
+}
+
+.material-glass-soft {
+  background: var(--runsys-glass-soft);
+  backdrop-filter: blur(var(--runsys-blur-soft));
+  -webkit-backdrop-filter: blur(var(--runsys-blur-soft));
+}
+
+.material-glass-dense {
+  background: var(--runsys-glass-dense);
+  border-color: var(--runsys-border-strong);
+  backdrop-filter: blur(var(--runsys-blur-dense));
+  -webkit-backdrop-filter: blur(var(--runsys-blur-dense));
+}
+
+.material-solid {
+  background: var(--runsys-ink-800);
+  border: 1px solid var(--runsys-border);
+}
+
+.material-data {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(243, 240, 232, 0.055),
+      rgba(243, 240, 232, 0.018)
+    ),
+    var(--runsys-ink-800);
+  border: 1px solid var(--runsys-border);
+}
+
+.signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.signal-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.signal-available,
+.signal-active {
+  color: var(--runsys-signal);
+}
+
+.signal-neutral {
+  color: var(--runsys-muted);
+}
+
+.entity-meta {
+  display: grid;
+  gap: 5px;
+}
+
+.entity-meta span {
+  color: var(--runsys-subtle);
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.entity-meta strong {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.entity-meta-muted strong {
+  color: var(--runsys-muted);
+}
+
+.spatial-link {
+  transition:
+    opacity var(--runsys-micro) var(--runsys-ease),
+    transform var(--runsys-context) var(--runsys-ease);
+}
+
+.spatial-link:hover {
+  opacity: 0.92;
+}
+
+.spatial-link:focus-visible {
+  outline: 1px solid var(--runsys-bone);
+  outline-offset: 5px;
+}
+
+.media-stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--runsys-ink-800);
+}
+
+.media-stage img {
+  transition:
+    transform var(--runsys-entity) var(--runsys-ease),
+    filter var(--runsys-context) var(--runsys-ease);
+}
+
+.media-stage:hover img {
+  transform: scale(1.025);
+}
+
+.media-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(11, 11, 10, 0.35) 0%,
+      transparent 35%,
+      transparent 58%,
+      rgba(11, 11, 10, 0.74) 100%
+    );
+}
+
+.media-vignette-side {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(11, 11, 10, 0.66),
+      transparent 42%,
+      rgba(11, 11, 10, 0.18)
+    );
+}
+
+.world-link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.world-link::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  border: 1px solid transparent;
+  transition:
+    border-color var(--runsys-context) var(--runsys-ease);
+}
+
+.world-link:hover::after {
+  border-color: rgba(243, 240, 232, 0.2);
+}
+
+.hero-world {
+  min-height: 100svh;
+  background: var(--runsys-ink);
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-media::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(
+      90deg,
+      rgba(11, 11, 10, 0.82) 0%,
+      rgba(11, 11, 10, 0.18) 50%,
+      rgba(11, 11, 10, 0.32) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(11, 11, 10, 0.88) 0%,
+      transparent 45%,
+      rgba(11, 11, 10, 0.2) 100%
+    );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  min-height: 100svh;
+  align-items: flex-end;
+  padding: 0 7vw 8vh;
+}
+
+.hero-identity {
+  max-width: 900px;
+}
+
+.hero-kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  margin: 0;
+  max-width: 1000px;
+  font-size: clamp(64px, 10vw, 150px);
+  line-height: 0.83;
+}
+
+.hero-subline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 28px;
+  color: rgba(243, 240, 232, 0.74);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero-context {
+  position: absolute;
+  right: 6vw;
+  bottom: 12vh;
+  z-index: 5;
+  width: min(310px, 31vw);
+}
+
+.hero-context-card {
+  padding: 18px;
+}
+
+.hero-context-card + .hero-context-card {
+  margin-top: 10px;
+}
+
+.hero-context-title {
+  margin: 4px 0 0;
+  font-size: 20px;
+  letter-spacing: -0.025em;
+}
+
+.hero-context-meta {
+  margin-top: 12px;
+  color: var(--runsys-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.hero-scroll {
+  position: absolute;
+  right: 32px;
+  bottom: 28px;
+  z-index: 6;
+  color: rgba(243, 240, 232, 0.48);
+}
+
+.section-world {
+  position: relative;
+  min-height: 100svh;
+  padding: 12vh 5vw;
+}
+
+.section-intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 64px;
+}
+
+.section-title {
+  max-width: 800px;
+  margin: 0;
+  font-size: clamp(48px, 7vw, 100px);
+  line-height: 0.88;
+}
+
+.section-description {
+  max-width: 330px;
+  margin: 0;
+  color: var(--runsys-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.athlete-field {
+  position: relative;
+  min-height: 680px;
+}
+
+.athlete-field-item {
+  position: absolute;
+  width: min(38vw, 530px);
+}
+
+.athlete-field-item:nth-child(1) {
+  top: 0;
+  left: 7%;
+}
+
+.athlete-field-item:nth-child(2) {
+  top: 22%;
+  right: 4%;
+  width: min(29vw, 410px);
+}
+
+.athlete-field-item:nth-child(3) {
+  bottom: 0;
+  left: 34%;
+  width: min(25vw, 360px);
+}
+
+.athlete-field-item:nth-child(4) {
+  top: 58%;
+  left: 0;
+  width: min(21vw, 300px);
+}
+
+.athlete-field-item:nth-child(5) {
+  top: 5%;
+  right: 22%;
+  width: min(18vw, 260px);
+  opacity: 0.62;
+}
+
+.athlete-entity {
+  display: block;
+}
+
+.athlete-entity-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--runsys-ink-800);
+}
+
+.athlete-entity-media img {
+  transition:
+    transform var(--runsys-entity) var(--runsys-ease),
+    filter var(--runsys-context) var(--runsys-ease);
+}
+
+.athlete-entity:hover .athlete-entity-media img {
+  transform: scale(1.035);
+}
+
+.athlete-entity-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 13px;
+}
+
+.athlete-entity-name {
+  margin: 0;
+  font-size: clamp(22px, 2.4vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+}
+
+.athlete-entity-detail {
+  margin-top: 4px;
+  color: var(--runsys-muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.entity-arrow {
+  color: var(--runsys-muted);
+  font-size: 20px;
+  transition:
+    transform var(--runsys-context) var(--runsys-ease),
+    color var(--runsys-micro) var(--runsys-ease);
+}
+
+.athlete-entity:hover .entity-arrow {
+  color: var(--runsys-bone);
+  transform: translate(4px, -4px);
+}
+
+.event-world {
+  min-height: 100svh;
+  padding: 11vh 5vw;
+}
+
+.event-stage {
+  position: relative;
+  min-height: 700px;
+}
+
+.event-primary {
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  width: min(66vw, 900px);
+}
+
+.event-primary-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.event-primary-copy {
+  position: absolute;
+  right: -17%;
+  bottom: -12%;
+  width: min(380px, 38%);
+  padding: 22px;
+}
+
+.event-primary-title {
+  margin: 6px 0 0;
+  font-size: clamp(42px, 6vw, 82px);
+  line-height: 0.86;
+}
+
+.event-side {
+  position: absolute;
+  right: 0;
+  bottom: 2%;
+  width: min(300px, 28vw);
+}
+
+.event-side-media {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.event-side-copy {
+  padding-top: 14px;
+}
+
+.opportunity-world {
+  min-height: 100svh;
+  padding: 12vh 5vw;
+}
+
+.opportunity-stage {
+  position: relative;
+  min-height: 700px;
+}
+
+.opportunity-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(58vw, 780px);
+}
+
+.opportunity-media-frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.opportunity-card {
+  position: absolute;
+  right: 3%;
+  top: 16%;
+  width: min(470px, 42vw);
+  padding: 30px;
+}
+
+.opportunity-title {
+  margin: 10px 0 0;
+  font-size: clamp(46px, 6vw, 90px);
+  line-height: 0.86;
+}
+
+.opportunity-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 32px;
+  padding-top: 22px;
+  border-top: 1px solid var(--runsys-border);
+}
+
+.opportunity-price {
+  margin-top: 30px;
+  font-size: 34px;
+  letter-spacing: -0.04em;
+}
+
+.editorial-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid rgba(243, 240, 232, 0.25);
+  background: var(--runsys-bone);
+  color: var(--runsys-ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    transform var(--runsys-micro) var(--runsys-ease),
+    background var(--runsys-micro) var(--runsys-ease);
+}
+
+.editorial-action:hover {
+  transform: translateY(-2px);
+  background: white;
+}
+
+.editorial-action:focus-visible {
+  outline: 2px solid var(--runsys-signal);
+  outline-offset: 3px;
+}
+
+.editorial-action-secondary {
+  background: transparent;
+  color: var(--runsys-bone);
+}
+
+.body-world {
+  min-height: 100svh;
+  padding: 12vh 5vw;
+}
+
+.body-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 7vw;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.body-map {
+  position: relative;
+  min-height: 680px;
+  display: grid;
+  place-items: center;
+}
+
+.body-silhouette {
+  position: relative;
+  width: min(290px, 42vw);
+  height: 610px;
+  opacity: 0.94;
+}
+
+.body-head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 72px;
+  height: 88px;
+  transform: translateX(-50%);
+  border-radius: 48% 48% 44% 44%;
+  background: rgba(243, 240, 232, 0.92);
+}
+
+.body-neck {
+  position: absolute;
+  top: 73px;
+  left: 50%;
+  width: 45px;
+  height: 55px;
+  transform: translateX(-50%);
+  background: rgba(243, 240, 232, 0.92);
+}
+
+.body-torso {
+  position: absolute;
+  top: 112px;
+  left: 50%;
+  width: 150px;
+  height: 235px;
+  transform: translateX(-50%);
+  border-radius: 42% 42% 28% 28%;
+  background: rgba(243, 240, 232, 0.92);
+}
+
+.body-arm {
+  position: absolute;
+  top: 128px;
+  width: 42px;
+  height: 235px;
+  border-radius: 30px;
+  background: rgba(243, 240, 232, 0.92);
+}
+
+.body-arm-left {
+  left: 22px;
+  transform: rotate(7deg);
+}
+
+.body-arm-right {
+  right: 22px;
+  transform: rotate(-7deg);
+}
+
+.body-leg {
+  position: absolute;
+  top: 326px;
+  width: 62px;
+  height: 278px;
+  border-radius: 32px;
+  background: rgba(243, 240, 232, 0.92);
+}
+
+.body-leg-left {
+  left: 75px;
+}
+
+.body-leg-right {
+  right: 75px;
+}
+
+.body-hotspot {
+  position: absolute;
+  z-index: 4;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 77, 46, 0.72);
+  border-radius: 50%;
+  background: rgba(255, 77, 46, 0.22);
+  box-shadow:
+    0 0 0 8px rgba(255, 77, 46, 0.06),
+    0 0 30px rgba(255, 77, 46, 0.18);
+  cursor: pointer;
+  transition:
+    transform var(--runsys-micro) var(--runsys-ease),
+    background var(--runsys-micro) var(--runsys-ease);
+}
+
+.body-hotspot:hover,
+.body-hotspot:focus-visible {
+  transform: scale(1.16);
+  background: rgba(255, 77, 46, 0.42);
+  outline: none;
+}
+
+.body-hotspot-selected {
+  transform: scale(1.18);
+  background: var(--runsys-signal);
+}
+
+.body-hotspot-calf {
+  right: 70px;
+  top: 455px;
+}
+
+.body-hotspot-forearm {
+  right: 8px;
+  top: 275px;
+}
+
+.body-context {
+  padding: 26px;
+}
+
+.body-context-title {
+  margin: 8px 0 0;
+  font-size: 42px;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+}
+
+.body-context-list {
+  display: grid;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.interest-status {
+  margin-top: 14px;
+  color: var(--runsys-signal);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.story-link {
+  display: inline-flex;
+  margin-top: 16px;
+  color: var(--runsys-muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-footer {
+  padding: 64px 32px;
+  border-top: 1px solid var(--runsys-border);
+  color: var(--runsys-muted);
+}
+
+@media (max-width: 900px) {
+  .site-header-inner {
+    padding: 0 18px;
+  }
+
+  .site-nav {
+    display: none;
+  }
+
+  .hero-content {
+    padding: 0 24px 48px;
+  }
+
+  .hero-context {
+    right: 24px;
+    bottom: 26px;
+    width: min(300px, calc(100vw - 48px));
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .hero-scroll {
+    display: none;
+  }
+
+  .section-world,
+  .event-world,
+  .opportunity-world,
+  .body-world {
+    padding: 96px 24px;
+  }
+
+  .section-intro {
+    display: block;
+    margin-bottom: 40px;
+  }
+
+  .section-description {
+    margin-top: 20px;
+  }
+
+  .athlete-field {
+    display: grid;
+    min-height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 42px 18px;
+  }
+
+  .athlete-field-item,
+  .athlete-field-item:nth-child(1),
+  .athlete-field-item:nth-child(2),
+  .athlete-field-item:nth-child(3),
+  .athlete-field-item:nth-child(4),
+  .athlete-field-item:nth-child(5) {
+    position: relative;
+    inset: auto;
+    width: auto;
+    opacity: 1;
+  }
+
+  .athlete-field-item:nth-child(2),
+  .athlete-field-item:nth-child(4) {
+    margin-top: 64px;
+  }
+
+  .event-stage,
+  .opportunity-stage {
+    min-height: auto;
+  }
+
+  .event-primary,
+  .event-side,
+  .opportunity-media,
+  .opportunity-card {
+    position: relative;
+    inset: auto;
+    width: 100%;
+  }
+
+  .event-primary-copy,
+  .opportunity-card {
+    margin: -36px 18px 0;
+    width: calc(100% - 36px);
+  }
+
+  .event-side {
+    margin-top: 72px;
+    width: min(320px, 80%);
+    margin-left: auto;
+  }
+
+  .opportunity-card {
+    margin-top: -40px;
+  }
+
+  .body-stage {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .body-map {
+    min-height: 600px;
+  }
+
+  .body-context {
+    margin: 0 auto;
+    width: min(100%, 480px);
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-title {
+    font-size: clamp(54px, 17vw, 92px);
+  }
+
+  .hero-media img {
+    object-position: 58% center;
+  }
+
+  .hero-subline {
+    margin-top: 20px;
+    font-size: 10px;
+  }
+
+  .athlete-field {
+    display: block;
+  }
+
+  .athlete-field-item,
+  .athlete-field-item:nth-child(2),
+  .athlete-field-item:nth-child(4) {
+    margin-top: 44px;
+  }
+
+  .athlete-entity-name {
+    font-size: 28px;
+  }
+
+  .event-primary-copy,
+  .opportunity-card {
+    padding: 20px;
+  }
+
+  .event-primary-title,
+  .opportunity-title {
+    font-size: 50px;
+  }
+
+  .body-map {
+    min-height: 540px;
+  }
+
+  .body-silhouette {
+    transform: scale(0.86);
+  }
+
+  .body-context-title {
+    font-size: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+  .material-glass-soft,
+  .material-glass-dense,
+  .site-nav {
+    background: rgba(16, 16, 14, 0.92);
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 680ms;
+  animation-timing-function: var(--runsys-ease);
+}
+
+::view-transition-old(root) {
+  animation-name: runsys-old-root;
+}
+
+::view-transition-new(root) {
+  animation-name: runsys-new-root;
+}
+
+@keyframes runsys-old-root {
+  to {
+    opacity: 0.35;
+    filter: blur(8px);
+    transform: scale(0.985);
+  }
+}
+
+@keyframes runsys-new-root {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(1.015);
+  }
+}
+
+/* ============================================================
+   RUNSYS VISUAL 2.0 — REFINEMENT PASS 01
+   Spatial continuity / cinematic depth / responsive composition
+   ============================================================ */
+
+:root {
+  --runsys-line-soft: rgba(243, 240, 232, 0.075);
+  --runsys-line-medium: rgba(243, 240, 232, 0.14);
+  --runsys-atmosphere: rgba(255, 77, 46, 0.045);
+  --runsys-depth-shadow:
+    0 40px 120px rgba(0, 0, 0, 0.42);
+}
+
+/* ------------------------------------------------------------
+   GLOBAL ATMOSPHERE
+   ------------------------------------------------------------ */
+
+.site-shell {
+  position: relative;
+  overflow: clip;
+}
+
+.site-shell::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 78% 18%,
+      var(--runsys-atmosphere),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 18% 72%,
+      rgba(243, 240, 232, 0.018),
+      transparent 32%
+    );
+}
+
+.spatial-scene,
+.section-world,
+.event-world,
+.opportunity-world {
+  position: relative;
+}
+
+.spatial-scene::before,
+.section-world::before,
+.event-world::before,
+.opportunity-world::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+}
+
+.section-world::before {
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(243, 240, 232, 0.012) 48%,
+      transparent
+    );
+}
+
+.event-world::before {
+  background:
+    radial-gradient(
+      circle at 72% 48%,
+      rgba(255, 77, 46, 0.025),
+      transparent 30%
+    );
+}
+
+.opportunity-world::before {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(243, 240, 232, 0.018),
+      transparent 42%
+    );
+}
+
+/* ------------------------------------------------------------
+   SCENE SEAMS
+   Avoid hard visual cuts between worlds.
+   ------------------------------------------------------------ */
+
+.hero-world::after,
+.section-world::after,
+.event-world::after,
+.opportunity-world::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 20vh;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      var(--runsys-ink)
+    );
+}
+
+.hero-world::after {
+  z-index: 4;
+}
+
+.section-world::after,
+.event-world::after,
+.opportunity-world::after {
+  z-index: 1;
+}
+
+/* ------------------------------------------------------------
+   HERO — less "hero banner", more environment
+   ------------------------------------------------------------ */
+
+.hero-world {
+  min-height: 112svh;
+  border-bottom: 1px solid var(--runsys-line-soft);
+}
+
+.hero-media {
+  transform: scale(1.025);
+  transform-origin: center;
+}
+
+.hero-media::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 64% 42%,
+      transparent 0,
+      rgba(11, 11, 10, 0.08) 34%,
+      rgba(11, 11, 10, 0.42) 100%
+    );
+}
+
+.hero-content {
+  padding-bottom: 11vh;
+}
+
+.hero-identity {
+  position: relative;
+  z-index: 2;
+  max-width: min(1000px, 72vw);
+}
+
+.hero-title {
+  text-wrap: balance;
+  text-shadow:
+    0 14px 60px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subline {
+  max-width: 760px;
+}
+
+.hero-context {
+  width: min(330px, 25vw);
+}
+
+.hero-context-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--runsys-radius-md);
+}
+
+.hero-context-card::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 42%;
+  height: 1px;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(243, 240, 232, 0.38)
+  );
+}
+
+.hero-scroll {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-scroll::before {
+  width: 34px;
+  height: 1px;
+  content: "";
+  background: rgba(243, 240, 232, 0.28);
+}
+
+/* ------------------------------------------------------------
+   SECTION INTRO — quieter, more editorial
+   ------------------------------------------------------------ */
+
+.section-intro {
+  position: relative;
+  z-index: 3;
+  min-height: 145px;
+  margin-bottom: 36px;
+}
+
+.section-intro::after {
+  width: 90px;
+  height: 1px;
+  margin-top: 18px;
+  content: "";
+  background: var(--runsys-line-medium);
+}
+
+.section-title {
+  text-wrap: balance;
+}
+
+.section-description {
+  position: relative;
+  z-index: 2;
+}
+
+/* ------------------------------------------------------------
+   ATHLETE DISCOVERY — stronger spatial field
+   ------------------------------------------------------------ */
+
+.athlete-field {
+  min-height: 820px;
+  margin-top: -12px;
+}
+
+.athlete-field::before {
+  position: absolute;
+  inset: 8% 20% 10% 16%;
+  content: "";
+  pointer-events: none;
+  border: 1px solid var(--runsys-line-soft);
+  border-radius: 50%;
+  transform: rotate(-8deg);
+}
+
+.athlete-field::after {
+  position: absolute;
+  top: 46%;
+  right: 9%;
+  width: 160px;
+  height: 1px;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--runsys-line-medium)
+  );
+}
+
+.athlete-field-item {
+  z-index: 2;
+  transition:
+    transform 700ms var(--runsys-ease),
+    opacity 500ms var(--runsys-ease);
+}
+
+.athlete-field-item:nth-child(1) {
+  z-index: 5;
+  transform: translateY(4%);
+}
+
+.athlete-field-item:nth-child(2) {
+  z-index: 3;
+  transform: translateY(-3%);
+}
+
+.athlete-field-item:nth-child(3) {
+  z-index: 4;
+  transform: translateY(8%);
+}
+
+.athlete-field-item:nth-child(4) {
+  z-index: 2;
+  opacity: 0.82;
+}
+
+.athlete-field-item:nth-child(5) {
+  z-index: 1;
+  opacity: 0.42;
+}
+
+.athlete-field:hover .athlete-field-item {
+  opacity: 0.58;
+}
+
+.athlete-field:hover .athlete-field-item:hover {
+  opacity: 1;
+  transform: translateY(-8px) scale(1.012);
+}
+
+.athlete-entity-media {
+  box-shadow: var(--runsys-depth-shadow);
+}
+
+.athlete-entity-info {
+  position: relative;
+}
+
+.athlete-entity-info::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 1px;
+  content: "";
+  background: var(--runsys-line-medium);
+}
+
+/* ------------------------------------------------------------
+   EVENT WORLD — entity relationship composition
+   ------------------------------------------------------------ */
+
+.event-world {
+  overflow: clip;
+}
+
+.event-stage {
+  min-height: 760px;
+}
+
+.event-primary {
+  z-index: 3;
+}
+
+.event-primary-media {
+  box-shadow: var(--runsys-depth-shadow);
+}
+
+.event-primary-copy {
+  z-index: 4;
+  border-radius: var(--runsys-radius-md);
+  box-shadow: var(--runsys-depth-shadow);
+}
+
+.event-side {
+  z-index: 5;
+  transform: translateY(4%);
+}
+
+.event-side-media {
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.32);
+}
+
+.event-side-copy {
+  padding-left: 3px;
+}
+
+/* relationship line between athlete and event */
+.event-stage::after {
+  position: absolute;
+  right: 19%;
+  bottom: 25%;
+  width: 15vw;
+  height: 1px;
+  content: "";
+  background:
+    linear-gradient(
+      90deg,
+      var(--runsys-line-medium),
+      transparent
+    );
+  transform: rotate(-18deg);
+  transform-origin: right center;
+}
+
+/* ------------------------------------------------------------
+   OPPORTUNITY — commercial object floats over athlete media
+   ------------------------------------------------------------ */
+
+.opportunity-world {
+  overflow: clip;
+}
+
+.opportunity-stage {
+  min-height: 780px;
+}
+
+.opportunity-media {
+  z-index: 2;
+}
+
+.opportunity-media-frame {
+  box-shadow: var(--runsys-depth-shadow);
+}
+
+.opportunity-card {
+  z-index: 5;
+  border-radius: var(--runsys-radius-md);
+  box-shadow:
+    var(--runsys-depth-shadow),
+    0 0 0 1px rgba(243, 240, 232, 0.025);
+}
+
+.opportunity-card::before {
+  position: absolute;
+  top: 0;
+  right: 18px;
+  width: 80px;
+  height: 1px;
+  content: "";
+  background: var(--runsys-signal);
+  opacity: 0.75;
+}
+
+.opportunity-title {
+  max-width: 430px;
+  text-wrap: balance;
+}
+
+.opportunity-price {
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------
+   BODY WORLD
+   ------------------------------------------------------------ */
+
+.body-world {
+  position: relative;
+  min-height: 100svh;
+  padding: 12vh 5vw;
+  overflow: clip;
+}
+
+.body-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+  align-items: center;
+  gap: 6vw;
+  min-height: 620px;
+}
+
+.body-map {
+  position: relative;
+  display: grid;
+  min-height: 580px;
+  place-items: center;
+}
+
+.body-silhouette {
+  position: relative;
+  width: 260px;
+  height: 540px;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.38));
+}
+
+.body-head,
+.body-neck,
+.body-torso,
+.body-arm,
+.body-leg {
+  position: absolute;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(243, 240, 232, 0.2),
+      rgba(243, 240, 232, 0.065)
+    );
+  border: 1px solid rgba(243, 240, 232, 0.14);
+}
+
+.body-head {
+  top: 0;
+  left: 50%;
+  width: 70px;
+  height: 86px;
+  border-radius: 48% 48% 44% 44%;
+  transform: translateX(-50%);
+}
+
+.body-neck {
+  top: 76px;
+  left: 50%;
+  width: 42px;
+  height: 42px;
+  transform: translateX(-50%);
+}
+
+.body-torso {
+  top: 105px;
+  left: 50%;
+  width: 126px;
+  height: 190px;
+  border-radius: 44% 44% 28% 28%;
+  transform: translateX(-50%);
+}
+
+.body-arm {
+  top: 112px;
+  width: 34px;
+  height: 196px;
+  border-radius: 20px;
+}
+
+.body-arm-left {
+  left: 48px;
+  transform: rotate(8deg);
+  transform-origin: top center;
+}
+
+.body-arm-right {
+  right: 48px;
+  transform: rotate(-8deg);
+  transform-origin: top center;
+}
+
+.body-leg {
+  top: 280px;
+  width: 48px;
+  height: 252px;
+  border-radius: 22px;
+}
+
+.body-leg-left {
+  left: 78px;
+  transform: rotate(2deg);
+}
+
+.body-leg-right {
+  right: 78px;
+  transform: rotate(-2deg);
+}
+
+.body-hotspot {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid rgba(243, 240, 232, 0.5);
+  border-radius: 50%;
+  background: rgba(11, 11, 10, 0.48);
+  cursor: pointer;
+  box-shadow:
+    0 0 0 7px rgba(243, 240, 232, 0.025),
+    0 10px 30px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 280ms var(--runsys-ease),
+    background 280ms var(--runsys-ease),
+    border-color 280ms var(--runsys-ease);
+}
+
+.body-hotspot::after {
+  position: absolute;
+  inset: 7px;
+  content: "";
+  border-radius: 50%;
+  background: var(--runsys-signal);
+  opacity: 0.9;
+}
+
+.body-hotspot:hover,
+.body-hotspot-selected {
+  transform: scale(1.22);
+  border-color: var(--runsys-bone);
+  background: rgba(255, 77, 46, 0.12);
+}
+
+.body-hotspot-calf {
+  right: 63px;
+  bottom: 34px;
+}
+
+.body-hotspot-forearm {
+  right: 32px;
+  top: 215px;
+}
+
+.body-context {
+  position: relative;
+  padding: 28px;
+  border-radius: var(--runsys-radius-md);
+}
+
+.body-context-title {
+  margin-top: 12px;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.body-context-list {
+  display: grid;
+  gap: 22px;
+  margin-top: 34px;
+  padding-top: 24px;
+  border-top: 1px solid var(--runsys-border);
+}
+
+/* ------------------------------------------------------------
+   ACTION AREA
+   ------------------------------------------------------------ */
+
+.editorial-action {
+  border-radius: 2px;
+}
+
+.editorial-action-secondary {
+  background: transparent;
+  color: var(--runsys-bone);
+  border-color: var(--runsys-border-strong);
+}
+
+.editorial-action-secondary:hover {
+  background: rgba(243, 240, 232, 0.07);
+}
+
+/* ------------------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------------------ */
+
+@media (max-width: 1100px) {
+  .hero-context {
+    right: 4vw;
+    width: min(300px, 31vw);
+  }
+
+  .athlete-field {
+    min-height: 720px;
+  }
+
+  .event-primary {
+    width: 70vw;
+  }
+
+  .event-primary-copy {
+    right: -12%;
+    width: 42%;
+  }
+
+  .opportunity-card {
+    right: 0;
+    width: min(440px, 46vw);
+  }
+}
+
+@media (max-width: 800px) {
+  .site-header-inner {
+    padding: 0 18px;
+  }
+
+  .site-nav {
+    gap: 0;
+  }
+
+  .site-nav a {
+    padding: 8px 9px;
+    font-size: 9px;
+  }
+
+  .hero-world {
+    min-height: 100svh;
+  }
+
+  .hero-content {
+    align-items: flex-end;
+    padding: 0 6vw 10vh;
+  }
+
+  .hero-identity {
+    max-width: 94vw;
+  }
+
+  .hero-title {
+    font-size: clamp(58px, 15vw, 110px);
+  }
+
+  .hero-context {
+    top: auto;
+    right: 6vw;
+    bottom: 25vh;
+    width: min(290px, 72vw);
+  }
+
+  .hero-context-card:nth-child(2) {
+    display: none;
+  }
+
+  .section-world,
+  .event-world,
+  .opportunity-world,
+  .body-world {
+    padding-right: 6vw;
+    padding-left: 6vw;
+  }
+
+  .section-intro {
+    display: block;
+    min-height: auto;
+    margin-bottom: 34px;
+  }
+
+  .section-description {
+    max-width: 480px;
+    margin-top: 24px;
+  }
+
+  .athlete-field {
+    display: grid;
+    min-height: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 34px 16px;
+  }
+
+  .athlete-field::before,
+  .athlete-field::after {
+    display: none;
+  }
+
+  .athlete-field-item,
+  .athlete-field-item:nth-child(1),
+  .athlete-field-item:nth-child(2),
+  .athlete-field-item:nth-child(3),
+  .athlete-field-item:nth-child(4),
+  .athlete-field-item:nth-child(5) {
+    position: relative;
+    inset: auto;
+    width: auto;
+    opacity: 1;
+    transform: none;
+  }
+
+  .athlete-field-item:nth-child(1) {
+    grid-column: span 2;
+  }
+
+  .athlete-field:hover .athlete-field-item {
+    opacity: 1;
+  }
+
+  .event-stage,
+  .opportunity-stage {
+    min-height: 0;
+  }
+
+  .event-primary {
+    position: relative;
+    inset: auto;
+    width: 100%;
+  }
+
+  .event-primary-copy {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(90%, 420px);
+    margin: -70px 0 0 auto;
+  }
+
+  .event-side {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(280px, 58vw);
+    margin: 48px 0 0 auto;
+  }
+
+  .event-stage::after {
+    display: none;
+  }
+
+  .opportunity-media {
+    position: relative;
+    width: 82%;
+  }
+
+  .opportunity-card {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: min(92%, 500px);
+    margin: -90px 0 0 auto;
+  }
+
+  .body-stage {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .body-map {
+    min-height: 500px;
+  }
+
+  .body-context {
+    width: min(100%, 500px);
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .site-header {
+    height: 60px;
+  }
+
+  .site-logo {
+    font-size: 11px;
+  }
+
+  .site-nav {
+    max-width: 70vw;
+    overflow-x: auto;
+  }
+
+  .site-nav a {
+    white-space: nowrap;
+  }
+
+  .hero-content {
+    padding-bottom: 8vh;
+  }
+
+  .hero-kicker {
+    margin-bottom: 15px;
+  }
+
+  .hero-subline {
+    margin-top: 20px;
+    gap: 6px 10px;
+    font-size: 10px;
+  }
+
+  .hero-context {
+    right: 6vw;
+    bottom: 23vh;
+  }
+
+  .hero-scroll {
+    right: 18px;
+    bottom: 20px;
+  }
+
+  .athlete-field {
+    grid-template-columns: 1fr;
+  }
+
+  .athlete-field-item:nth-child(1) {
+    grid-column: auto;
+  }
+
+  .athlete-entity-name {
+    font-size: 27px;
+  }
+
+  .event-primary-copy {
+    width: 94%;
+    margin-top: -45px;
+  }
+
+  .event-primary-title {
+    font-size: clamp(38px, 12vw, 62px);
+  }
+
+  .event-side {
+    width: 68%;
+  }
+
+  .opportunity-media {
+    width: 94%;
+  }
+
+  .opportunity-card {
+    width: 96%;
+    margin-top: -55px;
+    padding: 22px;
+  }
+
+  .opportunity-meta-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .opportunity-price {
+    font-size: 29px;
+  }
+
+  .body-world {
+    padding-top: 9vh;
+  }
+
+  .body-map {
+    min-height: 460px;
+  }
+
+  .body-silhouette {
+    transform: scale(0.86);
+  }
+
+  .body-context {
+    padding: 22px;
+  }
+}
+
+/* ------------------------------------------------------------
+   REDUCED MOTION
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .hero-media {
+    transform: none;
+  }
+
+  .athlete-field-item {
+    transform: none !important;
+  }
+}

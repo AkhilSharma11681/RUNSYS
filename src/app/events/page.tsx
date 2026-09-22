@@ -78,6 +78,12 @@ export default async function EventsPage() {
 
                 <p>{featured.description}</p>
 
+                <div className="events-featured-network">
+                  <span>{featured.athleteSlugs.length} ATHLETES</span>
+                  <span>{featured.brandSlugs.length} BRANDS</span>
+                  <span>{featured.date}</span>
+                </div>
+
                 <span className="events-featured-link">
                   Enter event world ↗
                 </span>
@@ -143,6 +149,21 @@ export default async function EventsPage() {
                     <span>{event.date}</span>
                     <span>{event.athleteSlugs.length} athletes</span>
                     <span>{event.brandSlugs.length} brands</span>
+                  </div>
+
+                  <div className="event-landscape-network">
+                    <span>{event.location}</span>
+                    <span>{event.sport}</span>
+                    {event.athleteSlugs.slice(0, 2).map((athlete) => (
+                      <span key={athlete}>
+                        {athlete.replaceAll("-", " ")}
+                      </span>
+                    ))}
+                    {event.brandSlugs.slice(0, 2).map((brand) => (
+                      <span key={brand}>
+                        {brand.replaceAll("-", " ")}
+                      </span>
+                    ))}
                   </div>
                 </div>
 

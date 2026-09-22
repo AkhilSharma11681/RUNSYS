@@ -132,6 +132,32 @@ export default async function ExplorePage() {
                 </Link>
               ) : null}
             </div>
+
+            <div className="explore-network-field">
+              {brands.slice(0, 4).map((brand, index) => (
+                <Link
+                  key={brand.id}
+                  href={`/brands/${brand.slug}`}
+                  className={`explore-network-node explore-network-node-${index + 1}`}
+                >
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{brand.name}</strong>
+                  <small>BRAND</small>
+                </Link>
+              ))}
+
+              {opportunities.slice(0, 4).map((opportunity, index) => (
+                <Link
+                  key={opportunity.id}
+                  href={`/opportunities/${opportunity.slug}`}
+                  className={`explore-network-node explore-network-opportunity-node-${index + 1}`}
+                >
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{opportunity.title}</strong>
+                  <small>{opportunity.inventoryType}</small>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       ) : null}

@@ -68,30 +68,45 @@ export default async function HomePage() {
               <span>·</span>
               <span>{maya.status}</span>
             </div>
+
+            <div className="hero-network">
+              <span>
+                <strong>{maya.events.length}</strong>
+                EVENTS
+              </span>
+              <span>
+                <strong>{maya.brands.length}</strong>
+                BRANDS
+              </span>
+              <span>
+                <strong>{maya.sponsorshipHistory.length}</strong>
+                PARTNERSHIPS
+              </span>
+            </div>
           </div>
         </div>
 
         <div className="hero-context">
           <GlassSurface className="hero-context-card">
             <div className="runsys-micro text-[var(--runsys-muted)]">
-              Next event
+              Athlete → Event
             </div>
             <div className="hero-context-title">{berlin.name}</div>
             <div className="hero-context-meta">
-              {berlin.location} · {berlin.date}
+              {berlin.location} · {berlin.date} · {berlin.brandSlugs.length} BRANDS
             </div>
           </GlassSurface>
 
           {opportunity ? (
             <GlassSurface className="hero-context-card">
               <div className="runsys-micro text-[var(--runsys-muted)]">
-                Sponsorship space
+                Event → Opportunity
               </div>
               <div className="hero-context-title">
                 {opportunity.placement}
               </div>
               <div className="hero-context-meta">
-                {opportunity.duration} · {opportunity.price}
+                {opportunity.duration} · {opportunity.price} · {opportunity.exclusivityLabel}
               </div>
             </GlassSurface>
           ) : null}
